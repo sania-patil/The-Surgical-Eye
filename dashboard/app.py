@@ -152,20 +152,36 @@ with tab2:
     if not frames:
         st.warning("No sample frames found. Run the pipeline first.")
     else:
-        st.info(f"Showing {min(len(frames), 20)} annotated frames from test video")
+        # Filter out raw frames, show only annotated ones
+        annotated_frames = [f for f in frames if "_raw" not in f.name]
+        st.info(f"Showing {min(len(annotated_frames), 18)} annotated frames from test video")
 
         # Show frames in grid - 3 per row
-        for i in range(0, min(len(frames), 18), 3):
+        for i in range(0, min(len(annotated_frames), 18), 3):
             cols = st.columns(3)
             for j, col in enumerate(cols):
-                if i + j < len(frames):
-                    img = load_image(frames[i + j])
+                if i + j < len(annotated_frames):
+                    img = load_image(annotated_frames[i + j])
                     if img is not None:
-                        col.image(img, caption=frames[i+j].name, use_column_width=True)
+                        col.image(img, caption=annotated_frames[i+j].name, width=300)
 
     st.divider()
+    st.subheader("🔄 Before vs After Enhancement")
+    raw_frames = [f for f in frames if "_raw" in f.name]
+    ann_frames = [f for f in frames if "_raw" not in f.name]
 
-    # Show annotated video if available
+    if raw_frames and ann_frames:
+        # Show first 4 pairs
+        for i in range(min(4, len(raw_frames))):
+            c1, c2 = st.columns(2)
+            with c1:
+                img = load_image(raw_frames[i])
+                if img is not None:
+                    st.image(img, caption=f"Raw Frame {i+1}", width=400)
+            with c2:
+                img = load_image(ann_frames[i])
+                if img is not None:
+                    st.image(img, caption=f"Annotated Frame {i+1}", width=400)
     video_path = Path("C:/Users/Cctech/TDS/outputs/test_video_annotated.mp4")
     if not video_path.exists():
         video_path = Path("D:/TDS/outputs/annotated_videos/test_video_annotated.mp4")
