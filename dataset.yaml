@@ -1,0 +1,7 @@
+path: D:/TDS/dataset/yolo
+train: images/train
+val: images/train
+
+nc: 1
+names:
+  0: kidney_stone

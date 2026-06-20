@@ -1,0 +1,50 @@
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# Model weights (too large for GitHub)
+*.pth
+*.pt
+*.onnx
+*.bin
+
+# Large dataset files - raw training images
+dataset/train/
+dataset/yolo/
+
+# Enhanced frames (3500+ images too large)
+outputs/enhanced_frames/
+
+# Temp files
+D:/tmp/
+*.tmp
+*.temp
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+runs/
+
+# Keep these for GitHub (required by objectives):
+# outputs/annotated_frames/   ← pre/post processing images
+# outputs/annotated_videos/   ← annotated videos
+# outputs/results.json        ← inference results
+# dataset/labels/             ← auto-generated labels
